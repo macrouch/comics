@@ -11,12 +11,76 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130922183341) do
+ActiveRecord::Schema.define(version: 20130922210006) do
+
+  create_table "characters", force: true do |t|
+    t.integer  "cv_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "issue_people", id: false, force: true do |t|
+    t.integer  "issue_id"
+    t.integer  "person_id"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "issues", force: true do |t|
+    t.integer  "cv_id"
+    t.string   "issue_number"
+    t.string   "name"
+    t.string   "stie_details_url"
+    t.datetime "store_date"
+    t.integer  "volume_id"
+    t.string   "cover_file_name"
+    t.string   "cover_content_type"
+    t.integer  "cover_file_size"
+    t.datetime "cover_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "issues_characters_tables", force: true do |t|
+    t.integer "issue_id"
+    t.integer "character_id"
+  end
+
+  create_table "people", force: true do |t|
+    t.integer  "cv_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "publishers", force: true do |t|
+    t.integer  "cv_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "provider"
     t.string   "uid"
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "volumes", force: true do |t|
+    t.integer  "cv_id"
+    t.string   "name"
+    t.integer  "start_year"
+    t.integer  "publisher_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

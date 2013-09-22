@@ -67,3 +67,4 @@ gem 'omniauth-google-oauth2'
 gem 'figaro'
 
 gem 'httparty'
+gem 'paperclip'
