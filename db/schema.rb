@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20130922210006) do
     t.integer  "cv_id"
     t.string   "issue_number"
     t.string   "name"
-    t.string   "stie_details_url"
+    t.string   "site_detail_url"
     t.datetime "store_date"
     t.integer  "volume_id"
     t.string   "cover_file_name"
