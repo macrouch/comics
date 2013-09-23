@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130922210006) do
+ActiveRecord::Schema.define(version: 20130923223348) do
 
   create_table "characters", force: true do |t|
     t.integer  "cv_id"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20130922210006) do
     t.integer "character_id"
   end
 
-  create_table "issue_people", id: false, force: true do |t|
+  create_table "creators", id: false, force: true do |t|
     t.integer  "issue_id"
     t.integer  "person_id"
     t.integer  "role_id"

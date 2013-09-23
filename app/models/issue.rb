@@ -2,7 +2,7 @@ class Issue < ActiveRecord::Base
   belongs_to :volume
   belongs_to :user
 
-  has_many :people, through: :issue_person
+  has_many :creators
   has_and_belongs_to_many :characters
 
   has_attached_file :cover
@@ -29,11 +29,11 @@ class Issue < ActiveRecord::Base
         role = Role.where(name: p['role']).first
         if role
           person = Person.from_cv_id_and_name(p['id'], p['name'])
-          ip = IssuePerson.new
-          ip.person = person
-          ip.issue = issue
-          ip.role = role
-          ip.save
+          creator = Creator.new
+          creator.person = person
+          creator.issue = issue
+          creator.role = role
+          creator.save
         end
       end
       issue.save

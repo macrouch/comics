@@ -1,5 +1,5 @@
 class Person < ActiveRecord::Base
-  has_many :issues, through: :issue_people
+  has_many :creators
 
   def self.cv_find_or_create(cv_id)
     person = Person.where(cv_id: cv_id).first
