@@ -20,6 +20,11 @@ ActiveRecord::Schema.define(version: 20130922210006) do
     t.datetime "updated_at"
   end
 
+  create_table "characters_issues", force: true do |t|
+    t.integer "issue_id"
+    t.integer "character_id"
+  end
+
   create_table "issue_people", id: false, force: true do |t|
     t.integer  "issue_id"
     t.integer  "person_id"
@@ -41,11 +46,6 @@ ActiveRecord::Schema.define(version: 20130922210006) do
     t.datetime "cover_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "issues_characters_tables", force: true do |t|
-    t.integer "issue_id"
-    t.integer "character_id"
   end
 
   create_table "people", force: true do |t|
