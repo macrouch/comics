@@ -3,6 +3,10 @@ class User < ActiveRecord::Base
   has_many :collections
   has_many :issues, through: :collections
 
+  validates :name, presence: true
+  validates :provider, presence: true
+  validates :uid, presence: true
+
   def self.from_omniauth(auth)
     where(auth.slice('provider', 'uid')).first || create_from_omniauth(auth)    
   end

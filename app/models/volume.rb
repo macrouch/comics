@@ -1,6 +1,11 @@
 class Volume < ActiveRecord::Base
   belongs_to :publisher
 
+  validates :cv_id, presence: true, uniqueness: true
+  validates :name, presence: true
+  validates :publisher, presence: true
+  validates :start_year, presence: true
+
   def self.cv_find_or_create(cv_id)
     volume = Volume.where(cv_id: cv_id).first
     unless volume

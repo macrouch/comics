@@ -1,5 +1,8 @@
 require 'spec_helper'
 
 describe Collection do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should belong_to :issue }
+  it { should belong_to :user }
+  it { should validate_presence_of :issue }
+  it { should validate_presence_of :user }
 end

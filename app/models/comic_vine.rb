@@ -8,19 +8,7 @@ class ComicVine
     get("/issue/#{id}")    
   end
 
-  def self.find_person(id)
-    get("/person/#{id}")
-  end
-
-  def self.find_character(id)
-    get("/character/#{id}")    
-  end
-
   def self.find_volume(id)
     get("/volume/#{id}")    
-  end
-
-  def self.find_publisher(id)
-    get("/publisher/#{id}")    
   end
 end
