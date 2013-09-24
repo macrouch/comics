@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
-  has_many :issues
+  has_many :collections
+  has_many :issues, through: :collections
 
   def self.from_omniauth(auth)
     where(auth.slice('provider', 'uid')).first || create_from_omniauth(auth)    
@@ -12,5 +13,10 @@ class User < ActiveRecord::Base
       user.uid = auth['uid']
       user.name = auth['info']['name']
     end
+  end
+
+  def add_issue(cv_id)
+    issue = Issue.cv_find_or_create(cv_id)
+    self.issues << issue
   end
 end

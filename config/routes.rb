@@ -1,5 +1,15 @@
 Comics::Application.routes.draw do
 
+  resources :users, only: [:show]
+  resources :users do
+    resources :publishers, only: [:index, :show]
+    resources :issues, only: [:index, :show]
+    resources :volumes, only: [:index, :show]
+    resources :characters, only: [:index, :show]
+    resources :people, only: [:index, :show]
+  end
+
+  get 'sessions/new', as: 'login'
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'
@@ -8,7 +18,7 @@ Comics::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'sessions#new'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

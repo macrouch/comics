@@ -1,0 +1,10 @@
+<h1><%= @user.name %>'s Comics</h1>
+
+<h2>Recently added issues</h2>
+<ul>
+  <% @recent_issues.each do |issue| %>
+    <li>
+      <%= link_to "#{issue.volume_name}, ##{issue.issue_number} - #{issue.name}", user_issue_path(@user, issue) %>
+    </li>
+  <% end %>
+</ul>

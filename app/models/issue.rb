@@ -1,7 +1,8 @@
 class Issue < ActiveRecord::Base
   belongs_to :volume
-  belongs_to :user
 
+  has_many :collections
+  has_many :users, through: :collections
   has_many :creators
   has_and_belongs_to_many :characters
 
@@ -18,6 +19,7 @@ class Issue < ActiveRecord::Base
       issue = Issue.new
       issue.cv_id = cv_id
       issue.name = result['name']
+      issue.issue_number = result['issue_number']
       issue.site_detail_url = result['site_detail_url']
       issue.store_date = result['store_date']
       issue.volume = Volume.cv_find_or_create(result['volume']['id'])
@@ -39,5 +41,9 @@ class Issue < ActiveRecord::Base
       issue.save
     end
     issue
+  end
+
+  def volume_name
+    self.volume.name    
   end
 end

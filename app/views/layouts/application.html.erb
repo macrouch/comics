@@ -7,15 +7,47 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<% if current_user %>
-  Signed in as <%= current_user.name %>
-  <%= link_to 'Sign out', signout_path %>
-<% else %>
-  <%= link_to 'Sign in with Google', '/auth/google_oauth2' %>
-<% end %>
-
 <div class="container">
-  <%= yield %>
+  <div class='row'>
+    <div class='span12'>
+      <div class='user-info'>
+        <% if @current_user %>
+          Signed in as <%= @current_user.name %>
+          <%= link_to 'Sign out', signout_path %>
+        <% else %>
+          <%= link_to 'Sign in with Google', '/auth/google_oauth2' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='span3'>
+      <ul class='nav nav-list affix'>
+        <li>
+          <%= link_to 'Home', user_path(@current_user) %>
+        </li>
+        <li>
+          <%= link_to 'View Publishers', user_publishers_path(@current_user) %>
+        </li>
+        <li>
+          <%= link_to 'View Volumes', user_volumes_path(@current_user) %>
+        </li>
+        <li>
+          <%= link_to 'View Issues', user_issues_path(@current_user) %>
+        </li>
+        <li>
+          <%= link_to 'View Characters', user_characters_path(@current_user) %>
+        </li>
+        <li>
+          <%= link_to 'View People', user_people_path(@current_user) %>
+        </li>
+      </ul>
+    </div>
+    <div class='span9'>
+      <%= yield %>
+    </div>
+  </div>
 </div>
 
 </body>
