@@ -9,6 +9,7 @@ Comics::Application.routes.draw do
     resources :people, only: [:index, :show]
   end
 
+  post 'add_issue', to: 'users#add_issue'
   get 'sessions/new', as: 'login'
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
