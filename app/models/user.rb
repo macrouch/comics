@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include Tokenable
 
   has_many :collections
   has_many :issues, through: :collections
@@ -6,6 +7,7 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :provider, presence: true
   validates :uid, presence: true
+  validates :token, presence: true, uniqueness: true
 
   def self.from_omniauth(auth)
     where(auth.slice('provider', 'uid')).first || create_from_omniauth(auth)    
