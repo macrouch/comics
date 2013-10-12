@@ -25,4 +25,9 @@ class User < ActiveRecord::Base
     issue = Issue.cv_find_or_create(cv_id)
     self.issues << issue
   end
+
+  def new_token
+    generate_token
+    self.save    
+  end
 end

@@ -6,6 +6,19 @@ class UsersController < ApplicationController
     @recent_issues = @user.issues.order(created_at: :desc).limit(10)
   end
 
+  def token
+    @user = @current_user
+  end
+
+  def get_new_token
+    @user = @current_user
+    @user.new_token
+
+    respond_to do |format|
+      format.json { render json: { token: @user.token } }
+    end
+  end
+
   def add_issue
     user = User.where(token: params[:token]).first
 

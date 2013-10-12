@@ -1,6 +1,11 @@
 Comics::Application.routes.draw do
 
-  resources :users, only: [:show]
+  resources :users, only: [:show] do
+    member do
+      get 'token'
+      get 'get_new_token'
+    end
+  end
   resources :users do
     resources :publishers, only: [:index, :show]
     resources :issues, only: [:index, :show]
@@ -10,6 +15,7 @@ Comics::Application.routes.draw do
   end
 
   post 'add_issue', to: 'users#add_issue'
+  # get 'get_new_token', to: 'users#get_new_token'
   get 'sessions/new', as: 'login'
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
