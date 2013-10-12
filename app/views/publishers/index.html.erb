@@ -1,2 +1,10 @@
-<h1>Publishers#index</h1>
-<p>Find me in app/views/publishers/index.html.erb</p>
+<h2>Publishers In Collection</h2>
+
+<ul>
+  <% @publishers.each do |publisher| %>
+    <li>
+      <%= link_to publisher.name, user_publisher_path(@user, publisher) %>
+      (<%= pluralize(publisher.volumes.size, 'Volume') %>)
+    </li>
+  <% end %>
+</ul>

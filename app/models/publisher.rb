@@ -4,6 +4,8 @@ class Publisher < ActiveRecord::Base
   validates :cv_id, presence: true, uniqueness: true
   validates :name, presence: true
 
+  default_scope order(:name)
+
   def self.from_cv_id_and_name(cv_id, name)
     publisher = Publisher.where(cv_id: cv_id).first
     unless publisher

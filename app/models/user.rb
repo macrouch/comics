@@ -21,6 +21,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def publishers
+    self.issues.map{ |issue| issue.publisher }.uniq
+  end
+
+  def issues_by_volume(volume)
+    self.issues.where(volume: volume).all
+  end
+
   def add_issue(cv_id)
     issue = Issue.cv_find_or_create(cv_id)
     self.issues << issue

@@ -20,4 +20,8 @@ class Volume < ActiveRecord::Base
     end
     volume
   end
+
+  def to_s
+    "#{self.name} (#{start_year})"
+  end
 end

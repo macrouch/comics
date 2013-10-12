@@ -10,13 +10,14 @@ class Issue < ActiveRecord::Base
 
   validates :cv_id, presence: true, uniqueness: true
   validates :issue_number, presence: true
-  validates :name, presence: true
+  # validates :name, presence: true
   validates :site_detail_url, presence: true
   validates :store_date, presence: true
   validates :volume, presence: true
   validates :cover, attachment_presence: true
 
   delegate :name, to: :volume, prefix: true
+  delegate :publisher, to: :volume
 
   def cover_from_url(url)
     self.cover = URI.parse(url)    
