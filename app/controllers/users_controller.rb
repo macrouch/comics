@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   protect_from_forgery except: :add_issue
+  skip_before_filter :is_logged_in, only: [:get_number_of_issues, :get_username, :add_issue]
 
   def show
     @user = User.where(id: params[:id]).first
