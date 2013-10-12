@@ -15,7 +15,8 @@ Comics::Application.routes.draw do
   end
 
   post 'add_issue', to: 'users#add_issue'
-  # get 'get_new_token', to: 'users#get_new_token'
+  get 'get_username', to: 'users#get_username'
+  get 'get_number_of_issues', to: 'users#get_number_of_issues'
   get 'sessions/new', as: 'login'
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')

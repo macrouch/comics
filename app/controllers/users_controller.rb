@@ -19,6 +19,31 @@ class UsersController < ApplicationController
     end
   end
 
+  def get_username
+    user = User.where(token: params[:token]).first
+
+    if user
+      respond_to do |format|
+        format.json { render json: { username: user.name } }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: { error: 'User not found.' } }
+      end
+    end
+  end
+
+  def get_number_of_issues
+    user = User.where(token: params[:token]).first
+
+    num_issues = user.issues.where(cv_id: params[:issue_id]).size
+
+    respond_to do |format|
+      format.json { render json: { number: num_issues } }
+    end
+
+  end
+
   def add_issue
     user = User.where(token: params[:token]).first
 
