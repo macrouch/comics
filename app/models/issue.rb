@@ -12,7 +12,7 @@ class Issue < ActiveRecord::Base
   validates :issue_number, presence: true
   # validates :name, presence: true
   validates :site_detail_url, presence: true
-  validates :store_date, presence: true
+  # validates :store_date, presence: true
   validates :volume, presence: true
   validates :cover, attachment_presence: true
 

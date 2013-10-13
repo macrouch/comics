@@ -1,2 +1,25 @@
-<h1>Issues#show</h1>
-<p>Find me in app/views/issues/show.html.erb</p>
+<h2><%= @issue.to_s %></h2>
+
+<ul>
+  <li>
+    Volume: <%= link_to @issue.volume, user_volume_path(@user, @issue.volume) %>
+  </li>
+  <li>
+    Cover: <%= image_tag @issue.cover.url %>
+  </li>
+  <ul>
+    <% @issue.creators.each do |creator| %>
+      <li>
+        <%= creator.person_name %>,
+        <%= creator.role_name %>
+      </li>
+    <% end %>
+  </ul>
+  <ul>
+    <% @issue.characters.each do |character| %>
+      <li>
+        <%= character.name %>
+      </li>
+    <% end %>
+  </ul>
+</ul>

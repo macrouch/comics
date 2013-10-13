@@ -6,4 +6,7 @@ class Creator < ActiveRecord::Base
   validates :issue, presence: true
   validates :person, presence: true
   validates :role, presence: true
+
+  delegate :name, to: :person, prefix: true
+  delegate :name, to: :role, prefix: true
 end
