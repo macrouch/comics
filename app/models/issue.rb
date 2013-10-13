@@ -19,6 +19,12 @@ class Issue < ActiveRecord::Base
   delegate :name, to: :volume, prefix: true
   delegate :publisher, to: :volume
 
+  default_scope order(:issue_number)
+
+  def to_s
+    "#{self.volume_name}, ##{self.issue_number} - #{self.name}"
+  end
+
   def cover_from_url(url)
     self.cover = URI.parse(url)    
   end

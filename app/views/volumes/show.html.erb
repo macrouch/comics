@@ -1,2 +1,9 @@
-<h1>Volumes#show</h1>
-<p>Find me in app/views/volumes/show.html.erb</p>
+<h2><%= @volume.to_s %></h2>
+
+<ul>
+  <% @issues.each do |issue| %>
+    <li>
+      <%= link_to issue.to_s, user_issue_path(@user, issue) %>
+    </li>
+  <% end %>
+</ul>

@@ -4,7 +4,7 @@
 <ul>
   <% @recent_issues.each do |issue| %>
     <li>
-      <%= link_to "#{issue.volume_name}, ##{issue.issue_number} - #{issue.name}", user_issue_path(@user, issue) %>
+      <%= link_to issue.to_s, user_issue_path(@user, issue) %>
     </li>
   <% end %>
 </ul>
