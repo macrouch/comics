@@ -5,6 +5,8 @@ class UsersController < ApplicationController
   def show
     @user = User.where(id: params[:id]).first
     @recent_issues = @user.issues.order(created_at: :desc).limit(10)
+    @publishers = @user.publishers.sort{|a,b| a.name.downcase <=> b.name.downcase }
+    @top_volumes = @user.top_volumes
   end
 
   def token

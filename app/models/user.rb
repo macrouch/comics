@@ -25,6 +25,10 @@ class User < ActiveRecord::Base
     self.issues.map{ |issue| issue.publisher }.uniq
   end
 
+  def top_volumes
+    self.issues.group(:volume_id).order('count_id desc').limit(10).count('id')
+  end
+
   def issues_by_volume(volume)
     self.issues.where(volume: volume).all
   end

@@ -2,50 +2,57 @@
 <html>
 <head>
   <title>Comics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag    "application", media: "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="container">
-  <div class='row'>
-    <div class='span12'>
-      <div class='user-info'>
-        <% if @current_user %>
-          Signed in as <%= @current_user.name %>
-          <%= link_to 'Sign out', signout_path %>
-        <% else %>
-          <%= link_to 'Sign in with Google', '/auth/google_oauth2' %>
-        <% end %>
+  <div class='navbar navbar-inverse navbar-fixed-top'>
+    <div class='navbar-inner'>
+      <div class='container'>
+        <button type='button' class='btn btn-navbar' data-toggle='collapse' data-target='.nav-collapse'>
+          <span class='icon-bar'></span>
+          <span class='icon-bar'></span>
+          <span class='icon-bar'></span>
+        </button>
+        <a class='brand' href="#">Comics</a>
+        <div class='nav-collapse collapse'>
+          <ul class='nav'>
+            <li>
+              <%= link_to 'Home', user_path(@current_user) if @current_user %>
+            </li>
+          </ul>
+          <ul class='nav pull-right'>
+            <% if @current_user %>
+              <li class='dropdown'>
+                <a href="#" class='dropdown-toggle' data-toggle='dropdown'>
+                  <%= @current_user.name %>
+                  <b class='caret'></b>
+                </a>
+                <ul class='dropdown-menu'>
+                  <li>
+                    <%= link_to 'Sign out', signout_path %>
+                  </li>
+                  <li>
+                    <%= link_to 'Chrome Extension Token', token_user_path(@current_user) %>
+                  </li>
+                </ul>
+                
+              </li>
+            <% else %>
+              <li>
+                <%= link_to 'Sign in with Google', '/auth/google_oauth2' %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
-
+<div class="container">
   <div class='row'>
-    <div class='span3'>
-      <ul class='nav nav-list affix'>
-        <% if @current_user %>
-        <li>
-          <%= link_to 'Home', user_path(@current_user) %>
-        </li>
-        <li>
-          <%= link_to 'View Publishers', user_publishers_path(@current_user) %>
-        </li>
-        <li>
-          <%= link_to 'View Characters', user_characters_path(@current_user) %>
-        </li>
-        <li>
-          <%= link_to 'View People', user_people_path(@current_user) %>
-        </li>
-        <li>
-          <%= link_to 'Chrome Extension Token', token_user_path(@current_user) %>
-        </li>
-        <% end %>
-      </ul>
-    </div>
-    <div class='span9'>
-      <%= yield %>
-    </div>
+    <%= yield %>
   </div>
 </div>
 
