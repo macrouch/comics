@@ -8,9 +8,9 @@ describe Issue do
   it { should have_and_belong_to_many :characters }
   it { should validate_presence_of :cv_id }
   it { should validate_uniqueness_of :cv_id }
-  it { should validate_presence_of :name }
+  # it { should validate_presence_of :name }
   it { should validate_presence_of :site_detail_url }
-  it { should validate_presence_of :store_date }
+  # it { should validate_presence_of :store_date }
   it { should validate_presence_of :volume }
   it { should have_attached_file :cover }
   it { should validate_attachment_presence :cover }
