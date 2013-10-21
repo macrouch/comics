@@ -40,7 +40,6 @@ group :development, :test do
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov'
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'guard-rspec'
   gem 'shoulda-matchers'
   gem 'better_errors'
@@ -49,6 +48,10 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'fuubar'
+end
+
+group :test, :darwin do
+  gem 'rb-fsevent', :require => false
 end
 
 # Use ActiveModel has_secure_password
