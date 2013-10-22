@@ -6,6 +6,8 @@ class Volume < ActiveRecord::Base
   validates :publisher, presence: true
   validates :start_year, presence: true
 
+  default_scope order(:name)
+
   def self.cv_find_or_create(cv_id)
     volume = Volume.where(cv_id: cv_id).first
     unless volume
