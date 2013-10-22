@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   skip_before_filter :is_logged_in
 
   def new
-    
+    redirect_to user_path(@current_user) if current_user
   end
 
   def create
