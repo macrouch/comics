@@ -2,9 +2,14 @@
   <h2>Recent Issues</h2>
   <p>(<%= @user.issues.size %> total)</p>
   <ul>
-    <% @recent_issues.each do |issue| %>
+    <% @recent_collections.each do |collection| %>
+      <% issue = collection.issue %>
       <li>
-        <%= link_to issue.to_s, user_issue_path(@user, issue) %>
+        <% if collection.is_variant? %>
+          <%= link_to collection.to_s, user_variant_path(@user, issue, collection.id) %>
+        <% else %>
+          <%= link_to issue.to_s, user_issue_path(@user, issue) %>
+        <% end %>
       </li>
     <% end %>
   </ul>

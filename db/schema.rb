@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131010214540) do
+ActiveRecord::Schema.define(version: 20131030142255) do
 
   create_table "characters", force: true do |t|
     t.integer  "cv_id"
@@ -26,8 +26,15 @@ ActiveRecord::Schema.define(version: 20131010214540) do
   end
 
   create_table "collections", force: true do |t|
-    t.integer "user_id"
-    t.integer "issue_id"
+    t.integer  "user_id"
+    t.integer  "issue_id"
+    t.string   "variant_name"
+    t.string   "variant_file_name"
+    t.string   "variant_content_type"
+    t.integer  "variant_file_size"
+    t.datetime "variant_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "creators", id: false, force: true do |t|

@@ -1,11 +1,11 @@
-<h2><%= @issue.to_s %></h2>
+<h2><%= @collection.nil? ? @issue.to_s : @collection.to_s %></h2>
 
 <ul>
   <li>
     Volume: <%= link_to @issue.volume, user_volume_path(@user, @issue.volume) %>
   </li>
   <li>
-    Cover: <%= image_tag @issue.cover.url %>
+    Cover: <%= @collection.nil? ? image_tag(@issue.cover.url) : image_tag(@collection.variant.url) %>
   </li>
   <ul>
     <% @issue.creators.each do |creator| %>

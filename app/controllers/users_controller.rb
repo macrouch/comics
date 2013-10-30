@@ -4,7 +4,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.where(id: params[:id]).first
-    @recent_issues = @user.issues.order(created_at: :desc).limit(10)
+    # @recent_issues = @user.issues.order(created_at: :desc).limit(10)
+    @recent_collections = @user.collections.order(created_at: :desc).limit(10)
     @publishers = @user.publishers.sort{|a,b| a.name.downcase <=> b.name.downcase }
     @top_volumes = @user.top_volumes
   end
@@ -53,9 +54,26 @@ class UsersController < ApplicationController
     if user
       issue_id = params[:id]
 
-      issue = Issue.cv_find_or_create(issue_id)
+      user.add_issue(issue_id)
 
-      user.issues << issue
+      respond_to do |format|
+        format.json { render json: { num_issues: user.issues.where(id: issue.id).size } }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: { error: "User does not exist" }, status: 404 }
+      end
+    end
+  end
+
+  def add_variant
+    user = User.where(token: params[:token]).first
+
+    if user
+      issue_id = params[:id]
+      image_url = params[:image]
+
+      user.add_variant(issue_id, image_url)
 
       respond_to do |format|
         format.json { render json: { num_issues: user.issues.where(id: issue.id).size } }

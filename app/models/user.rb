@@ -30,12 +30,21 @@ class User < ActiveRecord::Base
   end
 
   def issues_by_volume(volume)
-    self.issues.where(volume: volume).all
+    self.issues.where(volume: volume).uniq
   end
 
   def add_issue(cv_id)
     issue = Issue.cv_find_or_create(cv_id)
     self.issues << issue
+  end
+
+  def add_variant(cv_id, image_url, name)
+    issue = Issue.cv_find_or_create(cv_id)
+    user = self
+    collection = Collection.new(user: user, issue: issue)
+    collection.variant_name = name
+    collection.variant_from_url(image_url)
+    collection.save
   end
 
   def new_token
