@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
   def add_issue(cv_id)
     issue = Issue.cv_find_or_create(cv_id)
     self.issues << issue
+    return issue
   end
 
   def add_variant(cv_id, image_url, name)
@@ -45,6 +46,7 @@ class User < ActiveRecord::Base
     collection.variant_name = name
     collection.variant_from_url(image_url)
     collection.save
+    return collection
   end
 
   def new_token

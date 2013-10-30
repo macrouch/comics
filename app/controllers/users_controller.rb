@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   protect_from_forgery except: :add_issue
-  skip_before_filter :is_logged_in, only: [:get_number_of_issues, :get_username, :add_issue]
+  skip_before_filter :is_logged_in, only: [:get_number_of_issues, :get_username, :add_issue, :add_variant]
 
   def show
     @user = User.where(id: params[:id]).first
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
     if user
       issue_id = params[:id]
 
-      user.add_issue(issue_id)
+      issue = user.add_issue(issue_id)
 
       respond_to do |format|
         format.json { render json: { num_issues: user.issues.where(id: issue.id).size } }
@@ -72,11 +72,12 @@ class UsersController < ApplicationController
     if user
       issue_id = params[:id]
       image_url = params[:image]
+      name = params[:name]
 
-      user.add_variant(issue_id, image_url)
+      collection = user.add_variant(issue_id, image_url, name)
 
       respond_to do |format|
-        format.json { render json: { num_issues: user.issues.where(id: issue.id).size } }
+        format.json { render json: { num_issues: user.collections.where(issue_id: collection.issue_id).size } }
       end
     else
       respond_to do |format|

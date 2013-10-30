@@ -17,6 +17,7 @@ Comics::Application.routes.draw do
   get 'users/:user_id/issues/:id/:variant_id', to: 'issues#show', as: 'user_variant'
 
   post 'add_issue', to: 'users#add_issue'
+  post 'add_variant', to: 'users#add_variant'
   get 'get_username', to: 'users#get_username'
   get 'get_number_of_issues', to: 'users#get_number_of_issues'
 
