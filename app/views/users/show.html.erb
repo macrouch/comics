@@ -1,5 +1,6 @@
 <div class='span4'>
-  <h2>Recently added issues</h2>
+  <h2>Recent Issues</h2>
+  <p>(<%= @user.issues.size %> total)</p>
   <ul>
     <% @recent_issues.each do |issue| %>
       <li>
