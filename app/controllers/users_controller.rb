@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     @recent_collections = @user.collections.order(created_at: :desc).limit(10)
     @publishers = @user.publishers.sort{|a,b| a.name.downcase <=> b.name.downcase }
     @top_volumes = @user.top_volumes
+    @total_volumes = @publishers.map{ |p| p.volumes.size }.inject(:+)
   end
 
   def token

@@ -17,6 +17,7 @@
 
 <div class='span4'>
   <h2>Publishers</h2>
+  <p>(<%= @publishers.size %> total)</p>
   <ul>
     <% @publishers.each do |publisher| %>
       <li>
@@ -29,6 +30,7 @@
 
 <div class='span4'>
   <h2>Top Volumes</h2>
+  <p>(<%= @total_volumes %> total)</p>
   <ul>
     <% @top_volumes.each do |id, count| %>
       <% volume = Volume.find(id) %>
