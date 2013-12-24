@@ -4,7 +4,7 @@ class Issue < ActiveRecord::Base
   has_many :collections
   has_many :users, through: :collections
   has_many :creators
-  has_and_belongs_to_many :characters
+  has_and_belongs_to_many :characters, uniq: :true
 
   has_attached_file :cover
 
@@ -35,28 +35,37 @@ class Issue < ActiveRecord::Base
       result = ComicVine.find_issue(cv_id)['results']
       issue = Issue.new
       issue.cv_id = cv_id
-      issue.name = result['name']
-      issue.issue_number = result['issue_number']
-      issue.site_detail_url = result['site_detail_url']
-      issue.store_date = result['store_date']
-      issue.volume = Volume.cv_find_or_create(result['volume']['id'])
-      issue.cover_from_url(result['image']['super_url'])
-      result['character_credits'].each do |character|
-        issue.characters << Character.from_cv_id_and_name(character['id'], character['name'])
-      end
-      result['person_credits'].each do |p|
-        role = Role.where(name: p['role']).first
-        if role
-          person = Person.from_cv_id_and_name(p['id'], p['name'])
-          creator = Creator.new
-          creator.person = person
-          creator.issue = issue
-          creator.role = role
-          creator.save
-        end
-      end
-      issue.save
+      issue.set_properties(result)
     end
     issue
+  end
+
+  def cv_update
+    result = ComicVine.find_issue(cv_id)['results']
+    self.set_properties(result)
+  end
+
+  def set_properties(result)
+    self.name = result['name']
+    self.issue_number = result['issue_number']
+    self.site_detail_url = result['site_detail_url']
+    self.store_date = result['store_date']
+    self.volume = Volume.cv_find_or_create(result['volume']['id'])
+    self.cover_from_url(result['image']['super_url'])
+    result['character_credits'].each do |character|
+      self.characters << Character.from_cv_id_and_name(character['id'], character['name'])
+    end
+    result['person_credits'].each do |p|
+      role = Role.where(name: p['role']).first
+      if role
+        person = Person.from_cv_id_and_name(p['id'], p['name'])
+        creator = Creator.new
+        creator.person = person
+        creator.issue = self
+        creator.role = role
+        creator.save
+      end
+    end
+    self.save
   end
 end

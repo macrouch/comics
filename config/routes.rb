@@ -8,7 +8,7 @@ Comics::Application.routes.draw do
   end
   resources :users do
     resources :publishers, only: [:index, :show]
-    resources :issues, only: [:show]
+    resources :issues, only: [:show, :update]
     resources :volumes, only: [:show]
     resources :characters, only: [:index, :show]
     resources :people, only: [:index, :show]

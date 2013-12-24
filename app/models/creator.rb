@@ -3,7 +3,7 @@ class Creator < ActiveRecord::Base
   belongs_to :person
   belongs_to :role
 
-  validates :issue, presence: true
+  validates :issue, presence: true, uniqueness: { scope: :person }
   validates :person, presence: true
   validates :role, presence: true
 
