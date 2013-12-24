@@ -19,7 +19,7 @@ class Issue < ActiveRecord::Base
   delegate :name, to: :volume, prefix: true
   delegate :publisher, to: :volume
 
-  default_scope order("CAST(issue_number AS DECIMAL)")
+  default_scope order("CAST(issue_number AS DECIMAL(6,2)) ASC")
 
   def to_s
     "#{self.volume_name}, ##{self.issue_number} - #{self.name}"
