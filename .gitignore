@@ -24,3 +24,5 @@ config/database.yml
 public/system/
 
 config/deploy.rb
+
+spec/vcr/
