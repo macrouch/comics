@@ -4,7 +4,7 @@ class Issue < ActiveRecord::Base
   has_many :collections
   has_many :users, through: :collections
   has_many :creators
-  has_and_belongs_to_many :characters, -> { where uniq: :true }
+  has_and_belongs_to_many :characters, -> { uniq }
 
   has_attached_file :cover
 
