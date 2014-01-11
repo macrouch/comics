@@ -4,8 +4,8 @@ class Collection < ActiveRecord::Base
 
   has_attached_file :variant
 
-  validates :issue, presence: true
-  validates :user, presence: true
+  validates :issue_id, presence: true
+  validates :user_id, presence: true
 
   delegate :volume, to: :issue
 

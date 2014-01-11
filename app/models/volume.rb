@@ -3,10 +3,10 @@ class Volume < ActiveRecord::Base
 
   validates :cv_id, presence: true, uniqueness: true
   validates :name, presence: true
-  validates :publisher, presence: true
+  validates :publisher_id, presence: true
   validates :start_year, presence: true
 
-  default_scope order(:name)
+  default_scope { order(:name) }
 
   def self.cv_find_or_create(cv_id)
     volume = Volume.where(cv_id: cv_id).first

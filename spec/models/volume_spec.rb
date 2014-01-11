@@ -5,7 +5,7 @@ describe Volume do
   it { should validate_presence_of :cv_id }
   it { should validate_uniqueness_of :cv_id }
   it { should validate_presence_of :name }
-  it { should validate_presence_of :publisher }
+  it { should validate_presence_of :publisher_id }
   it { should validate_presence_of :start_year }
 
   it "creates volume from api" do

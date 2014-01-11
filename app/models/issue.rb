@@ -4,22 +4,20 @@ class Issue < ActiveRecord::Base
   has_many :collections
   has_many :users, through: :collections
   has_many :creators
-  has_and_belongs_to_many :characters, uniq: :true
+  has_and_belongs_to_many :characters, -> { where uniq: :true }
 
   has_attached_file :cover
 
   validates :cv_id, presence: true, uniqueness: true
   validates :issue_number, presence: true
-  # validates :name, presence: true
   validates :site_detail_url, presence: true
-  # validates :store_date, presence: true
-  validates :volume, presence: true
+  validates :volume_id, presence: true
   validates :cover, attachment_presence: true
 
   delegate :name, to: :volume, prefix: true
   delegate :publisher, to: :volume
 
-  default_scope order("CAST(issue_number AS DECIMAL(6,2)) ASC")
+  default_scope { order("CAST(issue_number AS DECIMAL(6,2)) ASC") }
 
   def to_s
     "#{self.volume_name}, ##{self.issue_number} - #{self.name}"

@@ -1,5 +1,5 @@
 <h2><%= @collection.nil? ? @issue.to_s : @collection.to_s %></h2>
-<p><%= link_to 'Update', user_issue_path(@user, @issue), method: 'put', class: 'btn btn-primary' %></p>
+<p><%= link_to 'Update Details', user_issue_path(@user, @issue), method: 'put', class: 'btn btn-primary' %></p>
 
 <ul>
   <li>
