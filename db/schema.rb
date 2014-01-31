@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131030142255) do
+ActiveRecord::Schema.define(version: 20140131214028) do
 
   create_table "characters", force: true do |t|
-    t.integer  "cv_id"
+    t.string   "cv_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20131030142255) do
   end
 
   create_table "issues", force: true do |t|
-    t.integer  "cv_id"
+    t.string   "cv_id"
     t.string   "issue_number"
     t.string   "name"
     t.string   "site_detail_url"
@@ -61,14 +61,14 @@ ActiveRecord::Schema.define(version: 20131030142255) do
   end
 
   create_table "people", force: true do |t|
-    t.integer  "cv_id"
+    t.string   "cv_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "publishers", force: true do |t|
-    t.integer  "cv_id"
+    t.string   "cv_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20131030142255) do
   end
 
   create_table "volumes", force: true do |t|
-    t.integer  "cv_id"
+    t.string   "cv_id"
     t.string   "name"
     t.integer  "start_year"
     t.integer  "publisher_id"

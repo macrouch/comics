@@ -14,8 +14,8 @@ describe Issue do
   it { should validate_attachment_presence :cover }
 
   it "creates issue from api" do
-    VCR.use_cassette 'api_calls' do
-      issue = Issue.cv_find_or_create(293259)
+    VCR.use_cassette 'issue' do
+      issue = Issue.cv_find_or_create('4000-293259')
       issue.should be_valid
     end
   end

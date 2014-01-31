@@ -7,7 +7,7 @@ describe Publisher do
   it { should validate_presence_of :name }
 
   it "creates publisher from attributes" do
-    publisher = Publisher.from_cv_id_and_name(12345, 'DC Comics')
+    publisher = Publisher.from_cv_id_and_name('4010-12345', 'DC Comics')
     publisher.should be_valid
   end
 end

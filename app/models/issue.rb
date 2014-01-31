@@ -19,6 +19,8 @@ class Issue < ActiveRecord::Base
 
   default_scope { order("CAST(issue_number AS DECIMAL(6,2)) ASC") }
 
+  ID_PREFIX = '4000-'
+
   def to_s
     "#{self.volume_name}, ##{self.issue_number} - #{self.name}"
   end
@@ -28,6 +30,7 @@ class Issue < ActiveRecord::Base
   end
 
   def self.cv_find_or_create(cv_id)
+    cv_id = cv_id.start_with?(ID_PREFIX) ? cv_id : ID_PREFIX + cv_id
     issue = Issue.where(cv_id: cv_id).first
     unless issue
       result = ComicVine.find_issue(cv_id)['results']
@@ -48,15 +51,15 @@ class Issue < ActiveRecord::Base
     self.issue_number = result['issue_number']
     self.site_detail_url = result['site_detail_url']
     self.store_date = result['store_date']
-    self.volume = Volume.cv_find_or_create(result['volume']['id'])
+    self.volume = Volume.cv_find_or_create(result['volume']['id'].to_s)
     self.cover_from_url(result['image']['super_url'])
     result['character_credits'].each do |character|
-      self.characters << Character.from_cv_id_and_name(character['id'], character['name'])
+      self.characters << Character.from_cv_id_and_name(character['id'].to_s, character['name'])
     end
     result['person_credits'].each do |p|
       role = Role.where(name: p['role']).first
       if role
-        person = Person.from_cv_id_and_name(p['id'], p['name'])
+        person = Person.from_cv_id_and_name(p['id'].to_s, p['name'])
         creator = Creator.new
         creator.person = person
         creator.issue = self

@@ -8,7 +8,10 @@ class Volume < ActiveRecord::Base
 
   default_scope { order(:name) }
 
+  ID_PREFIX = '4050-'
+
   def self.cv_find_or_create(cv_id)
+    cv_id = cv_id.start_with?(ID_PREFIX) ? cv_id : ID_PREFIX + cv_id
     volume = Volume.where(cv_id: cv_id).first
     unless volume
       result = ComicVine.find_volume(cv_id)['results']
@@ -17,7 +20,7 @@ class Volume < ActiveRecord::Base
       volume.name = result['name']
       volume.start_year = result['start_year']
       # volume.publisher = Publisher.cv_find_or_create(result['publisher']['id'])
-      volume.publisher = Publisher.from_cv_id_and_name(result['publisher']['id'],result['publisher']['name'])
+      volume.publisher = Publisher.from_cv_id_and_name(result['publisher']['id'].to_s,result['publisher']['name'])
       volume.save
     end
     volume

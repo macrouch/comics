@@ -49,7 +49,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'fuubar'
   gem 'vcr'
-  gem 'webmock'
+  gem 'webmock', "1.16"
 end
 
 group :test, :darwin do

@@ -9,8 +9,8 @@ describe Volume do
   it { should validate_presence_of :start_year }
 
   it "creates volume from api" do
-    VCR.use_cassette 'api_calls' do
-      volume = Volume.cv_find_or_create(42721)
+    VCR.use_cassette 'volume' do
+      volume = Volume.cv_find_or_create('4050-42721')
       volume.should be_valid
     end
   end

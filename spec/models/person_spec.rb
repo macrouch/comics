@@ -7,7 +7,7 @@ describe Person do
   it { should validate_presence_of :name }
 
   it "creates person from attributes" do
-    person = Person.from_cv_id_and_name(12345, 'Joe Smith')
+    person = Person.from_cv_id_and_name('4040-12345', 'Joe Smith')
     person.should be_valid
   end
 end
