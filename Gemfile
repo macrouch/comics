@@ -48,6 +48,10 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'fuubar'
+end
+
+group :test do
+  
   gem 'vcr'
   gem 'webmock', "1.16"
 end

@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   has_many :collections
   has_many :issues, through: :collections
+  has_many :volumes, through: :issues
 
   validates :name, presence: true
   validates :provider, presence: true
@@ -26,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def top_volumes
-    self.issues.group(:volume_id).order('count_id desc').limit(10).count('id')
+    self.volumes.unscoped.joins(:issues).group("volumes.id").order("count_issues_volume_id desc").limit(10).count("issues.volume_id")
   end
 
   def issues_by_volume(volume)

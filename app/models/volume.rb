@@ -1,5 +1,7 @@
 class Volume < ActiveRecord::Base
   belongs_to :publisher
+  has_many :user, through: :issues
+  has_many :issues
 
   validates :cv_id, presence: true, uniqueness: true
   validates :name, presence: true
@@ -28,5 +30,9 @@ class Volume < ActiveRecord::Base
 
   def to_s
     "#{self.name} (#{start_year})"
+  end
+
+  def number_issues
+    self.issues.size
   end
 end
