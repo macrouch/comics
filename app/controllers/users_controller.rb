@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
-  protect_from_forgery except: :add_issue
-  skip_before_filter :is_logged_in, only: [:get_number_of_issues, :get_username, :add_issue, :add_variant]
+  protect_from_forgery except: [:add_issue, :add_subscription, :remove_subscription, :volume_subscribed]
+  skip_before_filter :is_logged_in, only: [:get_number_of_issues, :get_username,
+                                            :add_issue, :add_variant,
+                                            :add_subscription, :remove_subscription, :volume_subscribed]
+  before_action :set_user, only: [:get_number_of_issues, :get_username,
+                                            :add_issue, :add_variant,
+                                            :add_subscription, :remove_subscription, :volume_subscribed]
 
   def show
     @user = User.where(id: params[:id]).first
@@ -25,11 +30,9 @@ class UsersController < ApplicationController
   end
 
   def get_username
-    user = User.where(token: params[:token]).first
-
-    if user
+    if @user
       respond_to do |format|
-        format.json { render json: { username: user.name } }
+        format.json { render json: { username: @user.name } }
       end
     else
       respond_to do |format|
@@ -39,9 +42,7 @@ class UsersController < ApplicationController
   end
 
   def get_number_of_issues
-    user = User.where(token: params[:token]).first
-
-    num_issues = user.issues.where(cv_id: params[:issue_id]).size
+    num_issues = @user.issues.where(cv_id: params[:issue_id]).size
 
     respond_to do |format|
       format.json { render json: { number: num_issues } }
@@ -49,16 +50,22 @@ class UsersController < ApplicationController
 
   end
 
-  def add_issue
-    user = User.where(token: params[:token]).first
+  def volume_subscribed
+    result = @user.is_subscribed?(params[:volume_id])
 
-    if user
+    respond_to do |format|
+      format.json { render json: { result: result } }
+    end
+  end
+
+  def add_issue
+    if @user
       issue_id = params[:id]
 
-      issue = user.add_issue(issue_id)
+      issue = @user.add_issue(issue_id)
 
       respond_to do |format|
-        format.json { render json: { num_issues: user.issues.where(id: issue.id).size } }
+        format.json { render json: { num_issues: @user.issues.where(id: issue.id).size } }
       end
     else
       respond_to do |format|
@@ -68,22 +75,67 @@ class UsersController < ApplicationController
   end
 
   def add_variant
-    user = User.where(token: params[:token]).first
-
-    if user
+    if @user
       issue_id = params[:id]
       image_url = params[:image]
       name = params[:name]
 
-      collection = user.add_variant(issue_id, image_url, name)
+      collection = @user.add_variant(issue_id, image_url, name)
 
       respond_to do |format|
-        format.json { render json: { num_issues: user.collections.where(issue_id: collection.issue_id).size } }
+        format.json { render json: { num_issues: @user.collections.where(issue_id: collection.issue_id).size } }
       end
     else
       respond_to do |format|
         format.json { render json: { error: "User does not exist" }, status: 404 }
       end
     end
+  end
+
+  def add_subscription
+    if @user
+      volume_id = params[:id]
+
+      status = @user.add_subscription(volume_id)
+
+      respond_to do |format|
+        if status
+          format.json { render json: { result: "Success" }, status: :ok }
+        else
+          format.json { render json: { result: "Failed" }, status: :internal_server_error }
+        end
+      end
+    else
+      respond_to do |format|
+        format.json { render json: { error: "User does not exist" }, status: 404 }
+      end
+    end
+  end
+
+  def remove_subscription
+    if @user
+      volume_id = params[:id]
+
+      status = @user.remove_subscription(volume_id)
+
+      respond_to do |format|
+        if status
+          format.json { render json: { result: "Success" }, status: :ok }
+        else
+          format.json { render json: { result: "Failed" }, status: :internal_server_error }
+        end
+      end
+    else
+      respond_to do |format|
+        format.json { render json: { error: "User does not exist" }, status: 404 }
+      end
+    end
+
+  end
+
+  private
+
+  def set_user
+    @user = User.where(token: params[:token]).first
   end
 end

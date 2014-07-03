@@ -18,8 +18,11 @@ Comics::Application.routes.draw do
 
   post 'add_issue', to: 'users#add_issue'
   post 'add_variant', to: 'users#add_variant'
+  post 'add_volume', to: 'users#add_subscription'
+  post 'remove_volume', to: 'users#remove_subscription'
   get 'get_username', to: 'users#get_username'
   get 'get_number_of_issues', to: 'users#get_number_of_issues'
+  get 'volume_subscribed', to: 'users#volume_subscribed'
 
   get 'sessions/new', as: 'login'
   get 'auth/:provider/callback', to: 'sessions#create'
@@ -66,7 +69,7 @@ Comics::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

@@ -1,7 +1,8 @@
 class Volume < ActiveRecord::Base
   belongs_to :publisher
-  has_many :user, through: :issues
+  has_many :users, through: :issues
   has_many :issues
+  has_many :subscriptions
 
   validates :cv_id, presence: true, uniqueness: true
   validates :name, presence: true

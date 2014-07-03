@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :collections
   has_many :issues, through: :collections
   has_many :volumes, through: :issues
+  has_many :subscriptions
 
   validates :name, presence: true
   validates :provider, presence: true
@@ -11,7 +12,7 @@ class User < ActiveRecord::Base
   validates :token, uniqueness: true
 
   def self.from_omniauth(auth)
-    where(auth.slice('provider', 'uid')).first || create_from_omniauth(auth)    
+    where(auth.slice('provider', 'uid')).first || create_from_omniauth(auth)
   end
 
   def self.create_from_omniauth(auth)
@@ -50,8 +51,24 @@ class User < ActiveRecord::Base
     return collection
   end
 
+  def is_subscribed?(volume_id)
+    volume = Volume.where(cv_id: volume_id).first
+    self.subscriptions.where(volume: volume).first
+  end
+
+  def add_subscription(volume_id)
+    volume = Volume.where(cv_id: volume_id).first
+    self.subscriptions.create!({volume: volume})
+  end
+
+  def remove_subscription(volume_id)
+    volume = Volume.where(cv_id: volume_id).first
+    subscription = self.subscriptions.where(volume: volume).first
+    subscription.destroy
+  end
+
   def new_token
     generate_token
-    self.save    
+    self.save
   end
 end
