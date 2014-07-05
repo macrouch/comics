@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   end
 
   def top_volumes
-    self.volumes.unscoped.joins(:issues).group("volumes.id").order("count_issues_volume_id desc").limit(10).count("issues.volume_id")
+    self.volumes.unscoped.joins(:issues).where('issues.id in (?)', self.collections.map{ |collection| collection.issue_id } ).group("volumes.id").order("count_issues_volume_id desc").limit(10).count("issues.volume_id")
   end
 
   def issues_by_volume(volume)
