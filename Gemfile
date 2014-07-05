@@ -51,7 +51,6 @@ group :development, :test do
 end
 
 group :test do
-  
   gem 'vcr'
   gem 'webmock', "1.16"
 end
@@ -79,3 +78,5 @@ gem 'figaro'
 
 gem 'httparty'
 gem 'paperclip'
+
+gem 'whenever'

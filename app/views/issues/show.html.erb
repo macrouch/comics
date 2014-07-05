@@ -1,12 +1,15 @@
-<h2><%= @collection.nil? ? @issue.to_s : @collection.to_s %></h2>
-<p><%= link_to 'Update Details', user_issue_path(@user, @issue), method: 'put', class: 'btn btn-primary' %></p>
+<h2><%= @variant.nil? ? @issue.to_s : @variant.to_s %></h2>
+<p>
+  <%= link_to 'Update Details', user_issue_path(@user, @issue), method: 'put', class: 'btn btn-primary' %>
+  <%= link_to 'Add Issue to Collection', user_add_existing_issue_path(@user, @issue), method: 'post', class: 'btn btn-primary' unless @user.issues.include?(@issue) %>
+</p>
 
 <ul>
   <li>
     Volume: <%= link_to @issue.volume, user_volume_path(@user, @issue.volume) %>
   </li>
   <li>
-    Cover: <%= @collection.nil? ? image_tag(@issue.cover.url) : image_tag(@collection.variant.url) %>
+    Cover: <%= @variant.nil? ? image_tag(@issue.cover.url) : image_tag(@variant.variant.url) %>
   </li>
   <ul>
     <% @issue.creators.each do |creator| %>

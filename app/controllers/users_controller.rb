@@ -58,6 +58,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def add_existing_issue
+    user = User.where(id: params[:user_id]).first
+    issue = Issue.where(id: params[:id]).first
+
+    respond_to do |format|
+      if user.issues << issue
+        format.html { redirect_to user_issue_path(user, issue), notice: 'Issue added to your collection' }
+      else
+        format.html { redirect_to user_issue_path(user, issue), error: 'Issue could not be added to your collection' }
+      end
+    end
+  end
+
   def add_issue
     if @user
       issue_id = params[:id]

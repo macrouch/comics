@@ -12,9 +12,11 @@ Comics::Application.routes.draw do
     resources :volumes, only: [:show]
     resources :characters, only: [:index, :show]
     resources :people, only: [:index, :show]
+    resources :subscriptions, only: [:index]
   end
 
   get 'users/:user_id/issues/:id/:variant_id', to: 'issues#show', as: 'user_variant'
+  post 'users/:user_id/issues/:id/add', to: 'users#add_existing_issue', as: 'user_add_existing_issue'
 
   post 'add_issue', to: 'users#add_issue'
   post 'add_variant', to: 'users#add_variant'

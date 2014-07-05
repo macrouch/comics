@@ -5,10 +5,14 @@ class ComicVine
   format :json
 
   def self.find_issue(id)
-    get("/issue/#{id}")    
+    get("/issue/#{id}")
   end
 
   def self.find_volume(id)
-    get("/volume/#{id}")    
+    get("/volume/#{id}")
+  end
+
+  def self.find_issues_by_volume(id)
+    get("/issues?filter=volume:#{id}&field_list=id")
   end
 end

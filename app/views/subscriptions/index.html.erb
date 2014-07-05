@@ -1,0 +1,11 @@
+<h2>Subscriptions</h2>
+<p>This page will list issues that you are subscribed to, but don't currenly own.</p>
+
+
+<ul>
+  <% @issues.each do |issue| %>
+    <li>
+      <%= link_to issue.to_s, user_issue_path(@user, issue) %>
+    </li>
+  <% end %>
+</ul>

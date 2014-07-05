@@ -22,6 +22,9 @@
             <li>
               <%= link_to 'Home', user_path(@current_user) if @current_user %>
             </li>
+            <li>
+              <%= link_to 'Subscriptions', user_subscriptions_path(@current_user) if @current_user %>
+            </li>
           </ul>
           <ul class='nav pull-right'>
             <% if @current_user %>
@@ -38,11 +41,7 @@
                     <%= link_to 'Chrome Extension Token', token_user_path(@current_user) %>
                   </li>
                 </ul>
-                
-              </li>
-            <% else %>
-              <li>
-                <%= link_to 'Sign in with Google', '/auth/google_oauth2' %>
+
               </li>
             <% end %>
           </ul>
