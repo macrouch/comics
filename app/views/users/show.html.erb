@@ -1,42 +1,39 @@
-<div class='span4'>
+<div class='col-md-4'>
   <h2>Recent Issues</h2>
   <p>(<%= @user.issues.size %> total)</p>
-  <ul>
+  <div class='list-group'>
     <% @recent_collections.each do |collection| %>
       <% issue = collection.issue %>
-      <li>
-        <% if collection.is_variant? %>
-          <%= link_to collection.to_s, user_variant_path(@user, issue, collection.id) %>
-        <% else %>
-          <%= link_to issue.to_s, user_issue_path(@user, issue) %>
-        <% end %>
-      </li>
+      <% if collection.is_variant? %>
+        <%= link_to collection.to_s, user_variant_path(@user, issue, collection.id), class: 'list-group-item' %>
+      <% else %>
+        <%= link_to issue.to_s, user_issue_path(@user, issue), class: 'list-group-item' %>
+      <% end %>
     <% end %>
-  </ul>
+  </div>
 </div>
 
-<div class='span4'>
+<div class='col-md-4'>
   <h2>Publishers</h2>
   <p>(<%= @publishers.size %> total)</p>
-  <ul>
+  <div class='list-group'>
     <% @publishers.each do |publisher| %>
-      <li>
-        <%= link_to publisher.name, user_publisher_path(@user, publisher) %>
-        (<%= pluralize(publisher.volumes.size, 'Volume') %>)
-      </li>
+      <%= link_to user_publisher_path(@user, publisher), class: 'list-group-item' do %>
+        <%= publisher.name %><span class="badge"><%= publisher.volumes.size %></span>
+      <% end %>
     <% end %>
-  </ul>
+  </div>
 </div>
 
-<div class='span4'>
+<div class='col-md-4'>
   <h2>Top Volumes</h2>
   <p>(<%= @total_volumes %> total)</p>
-  <ul>
+  <div class='list-group'>
     <% @top_volumes.each do |id, count| %>
       <% volume = Volume.find(id) %>
-      <li>
-        <%= link_to(volume.to_s, user_volume_path(@user, volume)) %> (<%= pluralize(count, 'Issue') %>)
-      </li>
+      <%= link_to user_volume_path(@user, volume), class: 'list-group-item' do %>
+        <%= volume.to_s %><span class="badge"><%= count %></span>
+      <% end %>
     <% end %>
-  </ul>
+  </div>
 </div>
