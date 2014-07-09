@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every :wednesday, :at => '12pm' do
+every :day, :at => '4:00 pm' do
   rake "subscriptions:check"
 end

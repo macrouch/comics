@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
   end
 
   def last_owned_issue(volume_id)
-    self.issues.where(volume_id: volume_id).maximum(:issue_number).to_f
+    self.issues.where(volume_id: volume_id).maximum("CAST(issue_number AS DECIMAL(6,2))").to_f
   end
 
   def new_token
