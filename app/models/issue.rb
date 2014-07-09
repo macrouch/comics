@@ -26,7 +26,7 @@ class Issue < ActiveRecord::Base
   end
 
   def cover_from_url(url)
-    self.cover = URI.parse(url)    
+    self.cover = URI.parse(url)
   end
 
   def self.cv_find_or_create(cv_id)
@@ -52,7 +52,7 @@ class Issue < ActiveRecord::Base
     self.site_detail_url = result['site_detail_url']
     self.store_date = result['store_date']
     self.volume = Volume.cv_find_or_create(result['volume']['id'].to_s)
-    self.cover_from_url(result['image']['super_url'])
+    self.cover_from_url(result['image']['small_url'])
     result['character_credits'].each do |character|
       self.characters << Character.from_cv_id_and_name(character['id'].to_s, character['name'])
     end
