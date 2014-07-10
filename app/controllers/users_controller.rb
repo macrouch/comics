@@ -61,12 +61,20 @@ class UsersController < ApplicationController
   def add_existing_issue
     user = User.where(id: params[:user_id]).first
     issue = Issue.where(id: params[:id]).first
-
+    return_to_subscriptions = request.referrer.include?('subscriptions')
     respond_to do |format|
       if user.issues << issue
-        format.html { redirect_to user_issue_path(user, issue), notice: 'Issue added to your collection' }
+        if return_to_subscriptions
+          format.html { redirect_to user_subscriptions_path(user), notice: 'Issue added to your collection' }
+        else
+          format.html { redirect_to user_issue_path(user, issue), notice: 'Issue added to your collection' }
+        end
       else
-        format.html { redirect_to user_issue_path(user, issue), error: 'Issue could not be added to your collection' }
+        if return_to_subscriptions
+          format.html { redirect_to user_subscriptions_path(user), notice: 'Issue could not be added to your collection' }
+        else
+          format.html { redirect_to user_issue_path(user, issue), error: 'Issue could not be added to your collection' }
+        end
       end
     end
   end

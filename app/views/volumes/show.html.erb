@@ -1,16 +1,26 @@
 <h2><%= @volume.to_s %></h2>
 
-<ul>
-  <% @issues.each do |issue| %>
-    <% collections = @user.collections.where(issue: issue).all %>
-    <% collections.each do |collection| %>
-      <li>
-        <% if collection.is_variant? %>
-          <%= link_to collection.to_s, user_variant_path(@user, issue, collection.id) %>
-        <% else %>
-          <%= link_to issue.to_s, user_issue_path(@user, issue) %>
-        <% end %>
-      </li>
-    <% end %>
+<p>
+  <% if @user.is_subscribed?(@volume.cv_id) %>
+    <%= link_to 'Unsubscribe', user_subscription_path(@user, @volume), method: :delete, class: 'btn btn-primary' %>
+  <% else %>
+      <%= link_to 'Subscribe', user_subscriptions_path(@user, id: @volume.id), method: :post, class: 'btn btn-primary' %>
   <% end %>
-</ul>
+</p>
+
+<div class='col-md-12'>
+  <div class='list-group'>
+    <% @issues.each do |issue| %>
+      <% collections = @user.collections.where(issue: issue).load %>
+
+      <% collections.each do |collection| %>
+        <% if collection.is_variant? %>
+          <%= link_to collection.to_s, user_variant_path(@user, issue, collection.id), class: 'list-group-item' %>
+        <% else %>
+          <%= link_to issue.to_s, user_issue_path(@user, issue), class: 'list-group-item' %>
+        <% end %>
+      <% end %>
+
+    <% end %>
+  </div>
+</div>

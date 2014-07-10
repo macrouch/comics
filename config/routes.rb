@@ -12,7 +12,7 @@ Comics::Application.routes.draw do
     resources :volumes, only: [:show]
     resources :characters, only: [:index, :show]
     resources :people, only: [:index, :show]
-    resources :subscriptions, only: [:index]
+    resources :subscriptions, only: [:index, :create, :destroy]
   end
 
   get 'users/:user_id/issues/:id/:variant_id', to: 'issues#show', as: 'user_variant'

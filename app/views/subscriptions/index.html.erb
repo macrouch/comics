@@ -1,11 +1,27 @@
 <h2>Subscriptions</h2>
 <p>This page will list issues that you are subscribed to, but don't currenly own.</p>
 
+<div class='col-md-12'>
+  <div class='panel-group' id='accordion'>
+    <% @issues.each do |issue| %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <a data-toggle="collapse" data-parent="#accordion" href="#<%= issue.id %>">
+            <h5 class="panel-title"><%= issue.to_s %></h5>
+          </a>
+        </div>
+      </div>
 
-<ul>
-  <% @issues.each do |issue| %>
-    <li>
-      <%= link_to issue.to_s, user_issue_path(@user, issue) %>
-    </li>
-  <% end %>
-</ul>
+      <div id="<%= issue.id %>" class="panel-collapse collapse">
+        <div class="panel-body">
+          <p>
+            <%= link_to 'View Issue', user_issue_path(@user, issue), class: 'btn btn-primary' %>
+
+
+            <%= link_to 'Add Issue to Collection', user_add_existing_issue_path(@user, issue), method: :post, class: 'btn btn-primary' %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
