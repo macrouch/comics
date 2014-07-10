@@ -5,14 +5,23 @@ class ComicVine
   format :json
 
   def self.find_issue(id)
-    get("/issue/#{id}")
+    Rails.logger.info "#{Time.now} ComicVine find issue #{id}"
+    result = get("/issue/#{id}")
+    Rails.logger.info "Result: #{result.code}"
+    result
   end
 
   def self.find_volume(id)
-    get("/volume/#{id}")
+    Rails.logger.info "#{Time.now} ComicVine find volume #{id}"
+    result = get("/volume/#{id}")
+    Rails.logger.info "Result: #{result.code}"
+    result
   end
 
   def self.find_issues_by_volume(id)
-    get("/issues?filter=volume:#{id}&field_list=id")
+    Rails.logger.info "#{Time.now} ComicVine find issues by volume #{id}"
+    result = get("/issues?filter=volume:#{id}&field_list=id")
+    Rails.logger.info "Result: #{result.code}"
+    result
   end
 end
