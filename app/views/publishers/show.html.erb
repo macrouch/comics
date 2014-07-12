@@ -1,10 +1,11 @@
 <h2><%= @publisher.name %></h2>
 
-<ul>
-  <% @volumes.each do |volume| %>
-    <li>
-      <%= link_to volume.to_s, user_volume_path(@user, volume) %>
-      (<%= pluralize(@user.issues_by_volume(volume).size, 'Issue') %>)
-    </li>
-  <% end %>
-</ul>
+<div class='col-md-12'>
+  <div class='list-group'>
+    <% @volumes.each do |volume| %>
+      <%= link_to user_volume_path(@user, volume), class: 'list-group-item' do %>
+        <%= volume.to_s %><span class='badge'><%= @user.issues_by_volume(volume).size %></span>
+      <% end %>
+    <% end %>
+  </div>
+</div>
