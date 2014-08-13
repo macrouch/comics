@@ -4,26 +4,38 @@
   <%= link_to 'Add Issue to Collection', user_add_existing_issue_path(@user, @issue), method: 'post', class: 'btn btn-primary' unless @user.issues.include?(@issue) %>
 </p>
 
-<ul>
-  <li>
-    Volume: <%= link_to @issue.volume, user_volume_path(@user, @issue.volume) %>
-  </li>
-  <li>
-    Cover: <%= @variant.nil? ? image_tag(@issue.cover.url) : image_tag(@variant.variant.url) %>
-  </li>
-  <ul>
-    <% @issue.creators.each do |creator| %>
-      <li>
-        <%= creator.person_name %>,
-        <%= creator.role_name %>
-      </li>
+<div class="row">
+  <div class="col-md-3 col-md-push-9">
+    <% image = @variant.nil? ? @issue.cover.url : @variant.variant.url %>
+    <%= link_to image, class: 'thumbnail fancybox' do %>
+      <%= image_tag(image) %>
     <% end %>
-  </ul>
-  <ul>
-    <% @issue.characters.each do |character| %>
+  </div>
+
+  <div class="col-md-9 col-md-pull-3">
+    <ul>
       <li>
-        <%= character.name %>
+        Volume: <%= link_to @issue.volume, user_volume_path(@user, @issue.volume) %>
       </li>
-    <% end %>
-  </ul>
-</ul>
+    </ul>
+
+    <ul>
+      <p>Creative Team</p>
+      <% @issue.creators.each do |creator| %>
+        <li>
+          <%= creator.person_name %>,
+          <%= creator.role_name %>
+        </li>
+      <% end %>
+    </ul>
+
+    <ul>
+      <p>Characters</p>
+      <% @issue.characters.each do |character| %>
+        <li>
+          <%= character.name %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

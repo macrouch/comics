@@ -13,4 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap/bootstrap
+//= require fancybox/jquery.fancybox.pack.js
 //= require_tree .
