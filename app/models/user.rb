@@ -58,7 +58,8 @@ class User < ActiveRecord::Base
 
   def add_subscription(volume_id)
     volume = Volume.cv_find_or_create(volume_id)
-    self.subscriptions.create!({volume: volume})
+    subscription = self.subscriptions.create!({volume: volume})
+    subscription.check()
   end
 
   def remove_subscription(volume_id)
