@@ -20,7 +20,7 @@ class ComicVine
 
   def self.find_issues_by_volume(id)
     Rails.logger.info "#{Time.now} ComicVine find issues by volume #{id}"
-    result = get("/issues?filter=volume:#{id}&field_list=id")
+    result = get("/issues?filter=volume:#{id}&field_list=id&sort=issue_number:desc")
     Rails.logger.info "Result: #{result.code}"
     result
   end
