@@ -52,12 +52,12 @@ class User < ActiveRecord::Base
   end
 
   def is_subscribed?(volume_id)
-    volume = Volume.where(cv_id: volume_id).first
-    self.subscriptions.where(volume: volume).first
+    volume = Volume.cv_find_or_create(volume_id)
+    volume.nil? ? false : self.subscriptions.where(volume: volume).first
   end
 
   def add_subscription(volume_id)
-    volume = Volume.where(cv_id: volume_id).first
+    volume = Volume.cv_find_or_create(volume_id)
     self.subscriptions.create!({volume: volume})
   end
 
