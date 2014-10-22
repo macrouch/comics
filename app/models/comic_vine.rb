@@ -1,6 +1,6 @@
 class ComicVine
   include HTTParty
-  base_uri 'api.comicvine.com'
+  base_uri 'www.comicvine.com/api'
   default_params :format => 'json', :api_key => ENV['COMICVINE_KEY']
   format :json
 
