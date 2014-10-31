@@ -8,8 +8,7 @@ class Subscription < ActiveRecord::Base
   def self.pull_subscriptions
     # TODO only pull uniq volumes
     Subscription.all.each do |subscription|
-      volume = subscription.volume
-      get_issues(volume)
+      subscription.check
     end
   end
 
