@@ -15,6 +15,6 @@ class Character < ActiveRecord::Base
       character.name = name
       character.save
     end
-    character    
+    character
   end
 end

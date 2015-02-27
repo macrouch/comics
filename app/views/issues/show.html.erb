@@ -33,7 +33,7 @@
       <p>Characters</p>
       <% @issue.characters.each do |character| %>
         <li>
-          <%= character.name %>
+          <%= link_to character.name, user_character_path(@user, character) %>
         </li>
       <% end %>
     </ul>

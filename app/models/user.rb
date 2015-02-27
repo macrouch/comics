@@ -82,4 +82,8 @@ class User < ActiveRecord::Base
     generate_token
     self.save
   end
+
+  def character_appearances(character)
+    self.issues.unscoped.includes(:characters, :volume).where(characters: {id: character.id}).order("volumes.name, CAST(issues.issue_number AS DECIMAL(6,2)) ASC")
+  end
 end
