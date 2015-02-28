@@ -2,8 +2,10 @@
 
 <p>Appears in <%= pluralize(@issues.all.count, 'issue') %> in your collection.</p>
 
-<ul>
-<% @issues.each do |issue| %>
-  <li><%= link_to issue.to_s, user_issue_path(@user, issue) %></li>
-<% end %>
-</ul>
+<div class="col-md-6">
+  <div class='list-group'>
+  <% @issues.each do |issue| %>
+    <%= link_to issue.to_s, user_issue_path(@user, issue), class: 'list-group-item' %>
+  <% end %>
+  </div>
+</div>

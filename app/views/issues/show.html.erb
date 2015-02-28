@@ -13,31 +13,25 @@
   </div>
 
   <div class="col-md-9 col-md-pull-3">
-    <ul>
-      <li>
-        Volume: <%= link_to @issue.volume, user_volume_path(@user, @issue.volume) %>
-      </li>
-    </ul>
+    <div class='list-group'>
+      <%= link_to @issue.volume, user_volume_path(@user, @issue.volume), class: 'list-group-item' %>
+    </div>
 
-    <ul>
+    <div class='list-group'>
       <p>Creative Team</p>
       <% @issue.creators.each do |creator| %>
-        <li>
-          <%= link_to user_person_path(@user, creator.person) do %>
-            <%= creator.person_name %>,
-            <%= creator.role_name %>
-          <% end %>
-        </li>
+        <%= link_to user_person_path(@user, creator.person), class: 'list-group-item' do %>
+          <%= creator.person_name %>,
+          <%= creator.role_name %>
+        <% end %>
       <% end %>
-    </ul>
+    </div>
 
-    <ul>
+    <div class='list-group'>
       <p>Characters</p>
       <% @issue.characters.each do |character| %>
-        <li>
-          <%= link_to character.name, user_character_path(@user, character) %>
-        </li>
+          <%= link_to character.name, user_character_path(@user, character), class: 'list-group-item' %>
       <% end %>
-    </ul>
+    </div>
   </div>
 </div>
