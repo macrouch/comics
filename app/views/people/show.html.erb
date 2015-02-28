@@ -1,2 +1,9 @@
-<h1>People#show</h1>
-<p>Find me in app/views/people/show.html.erb</p>
+<h2><%= @person.name %></h2>
+
+<p>Appears in <%= pluralize(@issues.all.count, 'issue') %> in your collection.</p>
+
+<ul>
+<% @issues.each do |issue| %>
+  <li><%= link_to issue.to_s, user_issue_path(@user, issue) %></li>
+<% end %>
+</ul>

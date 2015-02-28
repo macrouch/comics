@@ -86,4 +86,8 @@ class User < ActiveRecord::Base
   def character_appearances(character)
     self.issues.unscoped.includes(:characters, :volume).where(characters: {id: character.id}).order("volumes.name, CAST(issues.issue_number AS DECIMAL(6,2)) ASC")
   end
+
+  def person_appearances(person)
+    self.issues.unscoped.includes(:creators, :volume).where(creators: {person_id: person.id}).order("volumes.name, CAST(issues.issue_number AS DECIMAL(6,2)) ASC")
+  end
 end

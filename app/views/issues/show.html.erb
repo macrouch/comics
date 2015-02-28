@@ -23,8 +23,10 @@
       <p>Creative Team</p>
       <% @issue.creators.each do |creator| %>
         <li>
-          <%= creator.person_name %>,
-          <%= creator.role_name %>
+          <%= link_to user_person_path(@user, creator.person) do %>
+            <%= creator.person_name %>,
+            <%= creator.role_name %>
+          <% end %>
         </li>
       <% end %>
     </ul>
