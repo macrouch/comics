@@ -15,4 +15,12 @@ class IssuesController < ApplicationController
       format.html { redirect_to user_issue_url(@user, @issue), notice: 'Issue updated' }
     end
   end
+
+  def update_all
+    Issue.delay.update_all
+    respond_to do |format|
+      format.html { redirect_to root_url, notice: "Issues updating."}
+    end
+  end
+
 end

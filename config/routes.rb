@@ -26,6 +26,8 @@ Comics::Application.routes.draw do
   get 'get_number_of_issues', to: 'users#get_number_of_issues'
   get 'volume_subscribed', to: 'users#volume_subscribed'
 
+  get 'update_all_issues', to: 'issues#update_all'
+
   get 'sessions/new', as: 'login'
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')

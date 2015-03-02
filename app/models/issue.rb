@@ -69,4 +69,13 @@ class Issue < ActiveRecord::Base
     end
     self.save
   end
+
+  def self.update_all
+    Issue.all.each_with_index do |issue, index|
+      issue.cv_update
+      Delayed::Worker.logger.debug("Updated #{index+1} issues")
+      # sleep to stay under API limit
+      sleep 2
+    end
+  end
 end

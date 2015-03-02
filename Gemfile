@@ -64,9 +64,12 @@ end
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-gem 'capistrano', group: :development
-gem 'rvm-capistrano', group: :development
-gem "capistrano-db-tasks", group: :development, require: false
+group :development do
+  gem 'capistrano'
+  gem 'rvm-capistrano'
+  gem "capistrano-db-tasks", require: false
+  gem 'capistrano3-delayed-job', '~> 1.0'
+end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
@@ -78,3 +81,5 @@ gem 'httparty'
 gem 'paperclip'
 
 gem 'whenever'
+gem 'delayed_job_active_record'
+gem 'daemons'
