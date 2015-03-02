@@ -68,7 +68,7 @@ group :development do
   gem 'capistrano'
   gem 'rvm-capistrano'
   gem "capistrano-db-tasks", require: false
-  gem 'capistrano3-delayed-job'
+  gem 'capistrano3-delayed-job', '~> 1.0'
 end
 
 # Use debugger
