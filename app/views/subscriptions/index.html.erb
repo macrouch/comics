@@ -7,7 +7,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <a data-toggle="collapse" data-parent="#accordion" href="#<%= issue.id %>">
-            <h5 class="panel-title"><%= "#{issue.to_s} - #{issue.store_date.strftime("%b %-d, %Y")}" %></h5>
+            <h5 class="panel-title"><%= "#{issue.to_s} - #{issue.store_date.strftime("%b %-d, %Y") if issue.store_date}" %></h5>
           </a>
         </div>
       </div>
