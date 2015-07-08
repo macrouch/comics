@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
   def pull_box
     volumes = self.subscriptions.map {|s| s.volume }
     issues_by_volume = volumes.map{ |v| v.issues }
-    issues_by_volume.map { |issues| issues.where('id not in (?) AND CAST(issue_number AS DECIMAL(6,2)) > (?)', self.collections.map{ |collection| collection.issue_id }, self.last_owned_issue(issues.first.volume_id) ) }.flatten
+    issues_by_volume.map { |issues| issues.where('id not in (?) AND CAST(issue_number AS DECIMAL(6,2)) > (?)', self.collections.where.not(issue_id: nil).map{ |collection| collection.issue_id }, self.last_owned_issue(issues.first.volume_id) ) }.flatten
   end
 
   def last_owned_issue(volume_id)
