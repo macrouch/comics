@@ -66,7 +66,7 @@ end
 # Use Capistrano for deployment
 group :development do
   gem 'capistrano'
-  gem 'rvm-capistrano'
+  gem 'rvm-capistrano', require: false
   gem "capistrano-db-tasks", require: false
 end
 

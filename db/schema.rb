@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150302230225) do
+ActiveRecord::Schema.define(version: 20150707213951) do
 
   create_table "characters", force: true do |t|
     t.string   "cv_id"
@@ -20,9 +20,28 @@ ActiveRecord::Schema.define(version: 20150302230225) do
     t.datetime "updated_at"
   end
 
+  create_table "characters_collected_editions", force: true do |t|
+    t.integer "collected_edition_id"
+    t.integer "character_id"
+  end
+
   create_table "characters_issues", force: true do |t|
     t.integer "issue_id"
     t.integer "character_id"
+  end
+
+  create_table "collected_editions", force: true do |t|
+    t.string   "name"
+    t.string   "volume_number"
+    t.integer  "volume_id"
+    t.string   "cv_id"
+    t.string   "site_detail_url"
+    t.string   "cover_file_name"
+    t.string   "cover_content_type"
+    t.string   "cover_file_size"
+    t.string   "cover_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "collections", force: true do |t|
@@ -35,6 +54,7 @@ ActiveRecord::Schema.define(version: 20150302230225) do
     t.datetime "variant_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "collected_edition_id"
   end
 
   create_table "creators", id: false, force: true do |t|
@@ -43,6 +63,7 @@ ActiveRecord::Schema.define(version: 20150302230225) do
     t.integer  "role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "collected_edition_id"
   end
 
   create_table "delayed_jobs", force: true do |t|

@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Creator do
   it { should belong_to :issue }
+  it { should belong_to :collected_edition }
   it { should belong_to :person }
   it { should belong_to :role }
   # it { should validate_presence_of :issue }

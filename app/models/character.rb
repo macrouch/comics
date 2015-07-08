@@ -1,5 +1,6 @@
 class Character < ActiveRecord::Base
   has_and_belongs_to_many :issues
+  has_and_belongs_to_many :collected_editions
 
   validates :cv_id, presence: true, uniqueness: true
   validates :name, presence: true

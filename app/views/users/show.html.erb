@@ -1,39 +1,53 @@
-<div class='col-md-4'>
-  <h2>Recent Issues</h2>
-  <p>(<%= @user.issues.size %> total)</p>
-  <div class='list-group'>
-    <% @recent_collections.each do |collection| %>
-      <% issue = collection.issue %>
-      <% if collection.is_variant? %>
-        <%= link_to collection.to_s, user_variant_path(@user, issue, collection.id), class: 'list-group-item' %>
-      <% else %>
-        <%= link_to issue.to_s, user_issue_path(@user, issue), class: 'list-group-item' %>
+<div class="row">
+  <div class='col-md-4'>
+    <h2>Recent Issues</h2>
+    <p>(<%= @user.issues.size %> total)</p>
+    <div class='list-group'>
+      <% @recent_issues.each do |collection| %>
+        <% issue = collection.issue %>
+        <% if collection.is_variant? %>
+          <%= link_to collection.to_s, user_variant_path(@user, issue, collection.id), class: 'list-group-item' %>
+        <% else %>
+          <%= link_to issue.to_s, user_issue_path(@user, issue), class: 'list-group-item' %>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
+  </div>
+
+  <div class='col-md-4'>
+    <h2>Publishers</h2>
+    <p>(<%= @publishers.size %> total)</p>
+    <div class='list-group'>
+      <% @publishers.each do |publisher| %>
+        <%= link_to user_publisher_path(@user, publisher), class: 'list-group-item' do %>
+          <%= publisher.name %><span class="badge"><%= publisher.volumes.size %></span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class='col-md-4'>
+    <h2>Top Volumes</h2>
+    <p>(<%= @total_volumes %> total)</p>
+    <div class='list-group'>
+      <% @top_volumes.each do |id, count| %>
+        <% volume = Volume.find(id) %>
+        <%= link_to user_volume_path(@user, volume), class: 'list-group-item' do %>
+          <%= volume.to_s %><span class="badge"><%= count %></span>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
 
-<div class='col-md-4'>
-  <h2>Publishers</h2>
-  <p>(<%= @publishers.size %> total)</p>
-  <div class='list-group'>
-    <% @publishers.each do |publisher| %>
-      <%= link_to user_publisher_path(@user, publisher), class: 'list-group-item' do %>
-        <%= publisher.name %><span class="badge"><%= publisher.volumes.size %></span>
+<div class="row">
+  <div class='col-md-4'>
+    <h2>Recent Collected Editions</h2>
+    <p>(<%= @user.collected_editions.size %> total)</p>
+    <div class='list-group'>
+      <% @recent_collected_editions.each do |collected_edition| %>
+        <%= link_to collected_edition.to_s, user_collected_edition_path(@user, collected_edition), class: 'list-group-item' %>
       <% end %>
-    <% end %>
-  </div>
-</div>
-
-<div class='col-md-4'>
-  <h2>Top Volumes</h2>
-  <p>(<%= @total_volumes %> total)</p>
-  <div class='list-group'>
-    <% @top_volumes.each do |id, count| %>
-      <% volume = Volume.find(id) %>
-      <%= link_to user_volume_path(@user, volume), class: 'list-group-item' do %>
-        <%= volume.to_s %><span class="badge"><%= count %></span>
-      <% end %>
-    <% end %>
+    </div>
   </div>
 </div>

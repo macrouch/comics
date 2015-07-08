@@ -1,0 +1,37 @@
+<h2><%= @collected_edition.to_s %></h2>
+<p>
+  <%= link_to 'Update Details', user_collected_edition_path(@user, @collected_edition), method: 'put', class: 'btn btn-primary' %>
+  <%#= link_to 'Add Issue to Collection', user_add_existing_issue_path(@user, @issue), method: 'post', class: 'btn btn-primary' unless @user.issues.include?(@issue) %>
+</p>
+
+<div class="row">
+  <div class="col-md-3 col-md-push-9">
+    <% image = @variant.nil? ? @collected_edition.cover.url : @variant.variant.url %>
+    <%= link_to image, class: 'thumbnail fancybox' do %>
+      <%= image_tag(image) %>
+    <% end %>
+  </div>
+
+  <div class="col-md-9 col-md-pull-3">
+    <div class='list-group'>
+      <%= link_to @collected_edition.volume, user_volume_path(@user, @collected_edition.volume), class: 'list-group-item' %>
+    </div>
+
+    <div class='list-group'>
+      <p>Creative Team</p>
+      <% @collected_edition.creators.each do |creator| %>
+        <%= link_to user_person_path(@user, creator.person), class: 'list-group-item' do %>
+          <%= creator.person_name %>,
+          <%= creator.role_name %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class='list-group'>
+      <p>Characters</p>
+      <% @collected_edition.characters.each do |character| %>
+          <%= link_to character.name, user_character_path(@user, character), class: 'list-group-item' %>
+      <% end %>
+    </div>
+  </div>
+</div>

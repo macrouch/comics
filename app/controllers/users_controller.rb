@@ -9,8 +9,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.where(id: params[:id]).first
-    # @recent_issues = @user.issues.order(created_at: :desc).limit(10)
-    @recent_collections = @user.collections.order(created_at: :desc).limit(10)
+    @recent_issues = @user.collections.where.not(issue_id: nil).order(created_at: :desc).limit(10)
+    @recent_collected_editions = @user.collections.where.not(collected_edition_id: nil).order(created_at: :desc).limit(10).map{ |collection| collection.collected_edition }
     @publishers = @user.publishers.sort{|a,b| a.name.downcase <=> b.name.downcase }
     @top_volumes = @user.top_volumes
     @total_volumes = @publishers.map{ |p| p.volumes.size }.inject(:+)
@@ -43,9 +43,10 @@ class UsersController < ApplicationController
 
   def get_number_of_issues
     num_issues = @user.issues.where(cv_id: params[:issue_id]).size
+    num_collected_editions = @user.collected_editions.where(cv_id: params[:issue_id]).size
 
     respond_to do |format|
-      format.json { render json: { number: num_issues } }
+      format.json { render json: { number: num_issues + num_collected_editions } }
     end
 
   end

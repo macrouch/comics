@@ -8,7 +8,8 @@
   <% end %>
 </p>
 
-<div class='col-md-12'>
+<div class='col-md-6'>
+  <h2>Issues</h2>
   <div class='list-group'>
     <% @issues.each do |issue| %>
       <% collections = @user.collections.where(issue: issue).load %>
@@ -20,6 +21,24 @@
           <%= link_to issue.to_s, user_issue_path(@user, issue), class: 'list-group-item' %>
         <% end %>
       <% end %>
+
+    <% end %>
+  </div>
+</div>
+
+<div class='col-md-6'>
+  <h2>Collected Editions</h2>
+  <div class='list-group'>
+    <% @collected_editions.each do |collected_edition| %>
+      <%# collections = @user.collections.where(issue: issue).load %>
+
+      <!-- <%# collections.each do |collection| %>
+        <%# if collection.is_variant? %>
+          <%#= link_to collection.to_s, user_variant_path(@user, issue, collection.id), class: 'list-group-item' %>
+        <%# else %> -->
+          <%= link_to collected_edition.to_s, user_collected_edition_path(@user, collected_edition), class: 'list-group-item' %>
+        <!-- <%# end %> -->
+      <%# end %>
 
     <% end %>
   </div>

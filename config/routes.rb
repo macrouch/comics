@@ -13,12 +13,15 @@ Comics::Application.routes.draw do
     resources :characters, only: [:index, :show]
     resources :people, only: [:index, :show]
     resources :subscriptions, only: [:index, :create, :destroy]
+    resources :collected_editions, only: [:show, :update, :new, :create]
   end
+  get 'users/:user_id/collected_editions/new/:id', to: 'collected_editions#new', as: 'new_user_collected_edition_id'
 
   get 'users/:user_id/issues/:id/:variant_id', to: 'issues#show', as: 'user_variant'
   post 'users/:user_id/issues/:id/add', to: 'users#add_existing_issue', as: 'user_add_existing_issue'
 
   post 'add_issue', to: 'users#add_issue'
+  get 'add_collected_edition', to: 'collected_editions#add_collected_edition'
   post 'add_variant', to: 'users#add_variant'
   post 'add_volume', to: 'users#add_subscription'
   post 'remove_volume', to: 'users#remove_subscription'

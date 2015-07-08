@@ -5,6 +5,7 @@ describe Volume do
   it { should have_many :subscriptions }
   it { should have_many(:users).through(:issues) }
   it { should have_many :issues }
+  it { should have_many :collected_editions }
   it { should validate_presence_of :cv_id }
   it { should validate_uniqueness_of :cv_id }
   it { should validate_presence_of :name }

@@ -1,0 +1,51 @@
+<div class="col-md-6">
+  <%= form_for([@user, @collected_edition], html: {class: 'form-horizontal'}) do |f| %>
+    <fieldset>
+      <div class="page-header">
+        <h3>New Collected Edition</h3>
+      </div>
+
+      <% if @collected_edition.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@collected_edition.errors.count, "error") %> prohibited this collected edition from being saved:</h2>
+
+          <ul>
+          <% @collected_edition.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class='form-group'>
+        <%= f.label :cv_id, class: 'col-sm-6 control-label' do %>
+          ComicVine Id
+        <% end %>
+        <div class='col-sm-6'>
+          <%= f.text_field :cv_id, value: @cv_id, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class='form-group'>
+        <%= f.label :volume_id, class: 'col-sm-6 control-label' do %>
+          ComicVine Volume Id
+        <% end %>
+        <div class='col-sm-6'>
+          <%= f.collection_select(:volume_id_select, @user.volumes.all.uniq, :cv_id, :to_s, {:include_blank => 'Select Volume'}, {class: 'form-control'}) %>
+          <%= f.text_field :volume_id, class: 'form-control' %>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class='form-group'>
+      <div class="col-sm-offset-6 col-sm-6">
+        <%= f.submit class: 'btn btn-primary', data: { disable_with: 'Please wait...' } %>
+      </div>
+    </div>
+
+  <% end %>
+</div>
+
+<div class="col-md-6">
+  <%= image_tag(@temp_collected_edition['results']['image']['small_url']) if @temp_collected_edition %>
+</div>

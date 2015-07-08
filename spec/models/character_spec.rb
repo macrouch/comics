@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Character do
   it { should have_and_belong_to_many :issues }
+  it { should have_and_belong_to_many :collected_editions }
   it { should validate_presence_of :cv_id }
   it { should validate_uniqueness_of :cv_id }
   it { should validate_presence_of :name }

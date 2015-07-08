@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   has_many :collections
   has_many :issues, through: :collections
+  has_many :collected_editions, through: :collections
   has_many :volumes, through: :issues
   has_many :subscriptions
 
@@ -33,6 +34,10 @@ class User < ActiveRecord::Base
 
   def issues_by_volume(volume)
     self.issues.where(volume: volume).uniq
+  end
+
+  def collected_editions_by_volume(volume)
+    self.collected_editions.where(volume: volume).uniq
   end
 
   def add_issue(cv_id)
