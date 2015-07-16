@@ -4,8 +4,8 @@ class Creator < ActiveRecord::Base
   belongs_to :person
   belongs_to :role
 
-  validates :issue_id, uniqueness: { scope: :person }
-  validates :collected_edition_id, uniqueness: { scope: :person }
+  validates :issue_id, uniqueness: { scope: :person }, allow_nil: true
+  validates :collected_edition_id, uniqueness: { scope: :person }, allow_nil: true
   validates :person_id, presence: true
   validates :role_id, presence: true
 
