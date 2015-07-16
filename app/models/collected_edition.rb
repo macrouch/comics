@@ -48,7 +48,7 @@ class CollectedEdition < ActiveRecord::Base
 
   def set_properties(result, volume_id=nil)
     self.name = result['volume']['name']
-    self.volume_number = result['name']
+    self.volume_number = result['name'] || result['issue_number']
     self.site_detail_url = result['site_detail_url']
 
     # TODO volume from user entry

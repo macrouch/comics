@@ -29,7 +29,8 @@ class CollectedEditionsController < ApplicationController
 
   def create
     @user = User.where(id: params[:user_id]).first
-    volume_id = params[:collected_edition][:volume_id_select] || params[:collected_edition][:volume_id]
+    volume_id = params[:collected_edition][:volume_id_select].empty? ? params[:collected_edition][:volume_id] : params[:collected_edition][:volume_id_select]
+
     @collected_edition = CollectedEdition.cv_find_or_create(params[:collected_edition][:cv_id], volume_id)
 
     respond_to do |format|
