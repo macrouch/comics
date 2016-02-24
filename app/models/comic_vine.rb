@@ -2,6 +2,7 @@ class ComicVine
   include HTTParty
   base_uri 'www.comicvine.com/api'
   default_params :format => 'json', :api_key => ENV['COMICVINE_KEY']
+  headers 'User-Agent' => 'comics.sleekcoder.com'
   format :json
 
   def self.find_issue(id)
